@@ -16,7 +16,6 @@ function App() {
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
     setModal(false);
-
   }
 
   useEffect(() => {
@@ -28,27 +27,22 @@ function App() {
     const newArr = [...posts];
     newArr[index] = data;
     setPosts(newArr);
+    setPutModal(false);
   }
 
 
   const removePost = async (post) => {
-    const deleteCorn = await UnicornService.deletaPost(post._id);
-    console.log(deleteCorn)
-    setPosts(posts.filter(p => p._id !== post._id));
+    await UnicornService.deletaPost(post._id)
+      .then(() => setPosts(posts.filter(p => p._id !== post._id)));
   }
-  async function fetchUnicorns() {
+  const fetchUnicorns = async () => {
     const unicorns = await UnicornService.getAll();
     setPosts(unicorns);
   }
-  const getData = (updateCorn) => {
-    //setPosts([...posts, updateCorn])
-    console.log(updateCorn);
-    setPutModal(false);
-  }
-  function updateData(post) {
+
+  const updateData = (post) => {
     setCurecntItem(post);
     setPutModal(true);
-
   }
   return (
     <div className="App">
@@ -59,7 +53,7 @@ function App() {
         putmodal && (<MyModal visible
           setVisible={setPutModal}>
           <h1 style={{ textAlign: 'center' }}>Update Unicorn</h1>
-          <PutForm value={curentItem} onUpdate={getData} remUpdateData={remUpdateData} />
+          <PutForm value={curentItem} remUpdateData={remUpdateData} />
         </MyModal>)
       }
 

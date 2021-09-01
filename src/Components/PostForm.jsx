@@ -11,7 +11,7 @@ const PostForm = ({ create }) => {
 
     const addNewPost = async (e) => {
         e.preventDefault();
-        const newCorns = await UnicornService.newPost(post)
+        const newCorns = await UnicornService.newPost(post);
         create(newCorns);
         setPost({ name: '', age: '', colour: '' })
 

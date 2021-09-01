@@ -5,14 +5,15 @@ import MyInput from '../UI/input/MyInput';
 import UnicornService from '../API/UnicornService';
 
 
-const PutForm = ({ value, onUpdate }) => {
+const PutForm = ({ value, onUpdate, remUpdateData }) => {
 
-    const [updatePost, setUpdatedPost] = useState({ name: value.name, age: value.age, colour: value.colour, })
+    const [updatePost, setUpdatedPost] = useState({ name: value.name, age: value.age, colour: value.colour })
 
     const updatePostFrom = async (e) => {
         e.preventDefault();
         const updateCorn = await UnicornService.updatePost(value._id, updatePost)
         onUpdate(updateCorn);
+        remUpdateData({ ...updatePost, _id: value._id }, value._id)
         setUpdatedPost({ name: '', age: '', colour: '' })
     }
 

@@ -23,6 +23,13 @@ function App() {
     fetchUnicorns()
   }, [])
 
+  const remUpdateData = (data, id) => {
+    const index = posts.findIndex((e) => e._id === id);
+    const newArr = [...posts];
+    newArr[index] = data;
+    setPosts(newArr);
+  }
+
 
   const removePost = async (post) => {
     const deleteCorn = await UnicornService.deletaPost(post._id);
@@ -34,7 +41,7 @@ function App() {
     setPosts(unicorns);
   }
   const getData = (updateCorn) => {
-    setPosts([...posts, updateCorn])
+    //setPosts([...posts, updateCorn])
     console.log(updateCorn);
     setPutModal(false);
   }
@@ -52,7 +59,7 @@ function App() {
         putmodal && (<MyModal visible
           setVisible={setPutModal}>
           <h1 style={{ textAlign: 'center' }}>Update Unicorn</h1>
-          <PutForm value={curentItem} onUpdate={getData} />
+          <PutForm value={curentItem} onUpdate={getData} remUpdateData={remUpdateData} />
         </MyModal>)
       }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import MyButton from '../UI/button/MyButton';
 
-const PostItem = ({ number, post, onDelete, updatePost }) => {
+const PostItem = (props) => {
 
 
 
@@ -9,25 +9,27 @@ const PostItem = ({ number, post, onDelete, updatePost }) => {
         <div>
             <div className='post'>
                 <div className="post_content">
-                    <strong>{number}.{post.name} </strong>
+                    <strong>{props.number}.{props.post.name} </strong>
                     <div>
-                        Age: {post.age}
+                        Age: {props.post.age}
                     </div>
                     <div>
-                        Color: {post.colour}
+                        Color: {props.post.colour}
                     </div>
                 </div>
                 <div className="postBtn">
                     <MyButton
-                        onClick={onDelete}
+                        onClick={() => props.remove(props.post)}
                     >Delete</MyButton>
+                    <MyButton
+                        onClick={() => props.updade(props.post)}
+
+                    >Update</MyButton>
                 </div>
-                <MyButton
-                    onClick={updatePost}
-                >Edit</MyButton>
             </div>
 
         </div>
+
     );
 };
 

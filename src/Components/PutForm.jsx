@@ -2,26 +2,21 @@ import React from 'react';
 import { useState } from 'react';
 import MyButton from '../UI/button/MyButton';
 import MyInput from '../UI/input/MyInput';
-import UnicornService from '../API/UnicornService';
+import { useDispatch } from 'react-redux';
+import { updateDataUnicorn } from '../Redux/actions'
 
-
-const PutForm = ({ value, remUpdateData }) => {
-
+const PutForm = ({ value, }) => {
+    const dispachPutDataForServer = useDispatch();
     const [updatePost, setUpdatedPost] = useState({ name: value.name, age: value.age, colour: value.colour })
-
-    const updatePostFrom = async (e) => {
+    const updatePostFrom = (e) => {
         e.preventDefault();
-        //const updateCorn =
-        await UnicornService.updatePost(value._id, updatePost).then(() => remUpdateData({ ...updatePost, _id: value._id }, value._id))
-
-        //remUpdateData({ ...updatePost, _id: value._id }, value._id)
+        dispachPutDataForServer(updateDataUnicorn(updatePost, value._id))
         setUpdatedPost({ name: '', age: '', colour: '' })
     }
 
     return (
         <div>
             <form>
-
                 <MyInput
                     value={updatePost.name}
                     type="text"

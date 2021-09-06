@@ -1,11 +1,15 @@
+
 import React from 'react';
 import PostItem from './PostItem';
+import { useSelector } from 'react-redux';
 //noi props este obiect prin distructirizare extragem posts
-const PostList = ({ posts, name, remove, updade }) => {
+
+const PostList = ({ remove, updade }) => {
+    const state = useSelector(state => state.posts);
+    console.log(state)
     return (
         <div>
-            <h1 style={{ textAlign: 'center' }}>{name}</h1>
-            {posts.map((post, index) =>
+            {state.posts.map((post, index) =>
                 <PostItem remove={remove} updade={updade}
                     number={index + 1} post={post} key={post._id} />
             )}
@@ -13,5 +17,4 @@ const PostList = ({ posts, name, remove, updade }) => {
         </div>
     );
 };
-
 export default PostList;

@@ -1,0 +1,5 @@
+
+export const CREATE_POSTS = 'POST/CREATE_POST';
+export const UNICORNS = 'POST/UNICORNS';
+export const DELETE_UNICORN = 'POST/DELETE';
+export const UPDATE_UNICORNS = 'POST/UPDATE';

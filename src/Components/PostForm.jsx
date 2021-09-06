@@ -2,20 +2,16 @@ import React from 'react';
 import { useState } from 'react';
 import MyButton from '../UI/button/MyButton';
 import MyInput from '../UI/input/MyInput';
-import UnicornService from '../API/UnicornService';
+import { useDispatch } from 'react-redux';
+import { createNewPost } from '../Redux/actions'
 
-
-const PostForm = ({ create }) => {
-
-    const [post, setPost] = useState({ name: '', age: '', colour: '' })
-
-    const addNewPost = async (e) => {
+const PostForm = () => {
+    const dispachForPost = useDispatch();
+    const [post, setPost] = useState({ name: '', age: '', colour: '' });
+    const addNewPost = (e) => {
         e.preventDefault();
-        const newCorns = await UnicornService.newPost(post);
-        create(newCorns);
-        setPost({ name: '', age: '', colour: '' })
-
-
+        dispachForPost(createNewPost(post));
+        setPost({ name: '', age: '', colour: '' });
     }
 
     return (
@@ -49,5 +45,6 @@ const PostForm = ({ create }) => {
         </div>
     );
 };
+
 
 export default PostForm;

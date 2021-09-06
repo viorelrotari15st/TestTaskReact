@@ -5,6 +5,7 @@ const initialState = {
 }
 
 const reduceData = (state, dataForUpdate, id) => {
+    dataForUpdate._id = id
     const index = state.findIndex((e) => e._id === id);
     const newArr = [...state];
     newArr[index] = dataForUpdate;

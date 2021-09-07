@@ -21,3 +21,15 @@
     align-items: center;
 
 }
+.helements{
+    text-align: center;
+
+}
+.headertext {
+    text-align: center;
+    margin-top: 30px;
+    color:seagreen;
+}
+.warning{
+    color: red;
+}

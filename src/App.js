@@ -2,57 +2,79 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PostForm from './Components/PostForm';
 import PostList from './Components/PostList';
-import { unicornsGet, deteUnicorn } from './Redux/actions'
+import { unicornsGet, deteUnicorn } from './Redux/thunks'
 import './styles/App.css'
 import MyButton from './UI/button/MyButton';
 import MyModal from './Components/MyModal/MyModal'
 import PutForm from './Components/PutForm';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
+import { getError, getPosts, isLoading } from './Redux/postsReducer'
 
 function App() {
   const [modal, setModal] = useState(false);
   const [putmodal, setPutModal] = useState(false)
   const [curentItem, setCurecntItem] = useState()
 
-  const dispatchDataFromeServer = useDispatch()
+  const posts = useSelector(getPosts);
+  const loading = useSelector(isLoading);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatchDataFromeServer(unicornsGet())
+    dispatch(unicornsGet())
+  }, [dispatch])
 
-  }, [])
-
-  const dispachForDeletePost = useDispatch()
   const removePost = (post) => {
-    dispachForDeletePost(deteUnicorn(post._id));
+    dispatch(deteUnicorn(post._id));
   }
   const updatePost = (post) => {
     setCurecntItem(post);
     setPutModal(true);
   }
+  const error = useSelector(getError);
 
-  const state = useSelector(state => state.posts)
   return (
     <div className="App">
-      <h1 style={{ textAlign: 'center', marginTop: 10, color: 'green' }}>List of all unicorns from server</h1>
-      <MyButton style={{ marginTop: 30 }} onClick={() => setModal(true)} >Create Unicorn</MyButton>
+
+      {error !== null
+        ? <h1 className="warning">{error}</h1>
+        : <h1 className="headertext">List of all unicorns from server</h1>
+      }
+      <MyButton onClick={() => setModal(true)} >Create Unicorn</MyButton>
+
+      {!loading
+        ? <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={100}
+          width={100}
+        />
+        : <PostList
+          list={posts}
+          remove={removePost}
+          updade={updatePost}
+          title="List of posts"
+        />
+
+      }
 
       {putmodal && (<MyModal visible
         setVisible={setPutModal}>
-        <h1 style={{ textAlign: 'center' }}>Update Unicorn</h1>
+        {error !== null
+          ? < h1 className='warning'> {error}</h1>
+          : <h1 className="helements">Update Unicorn</h1>}
         <PutForm value={curentItem} />
       </MyModal>)
       }
       <MyModal visible={modal}
         setVisible={setModal}>
-        <h1 style={{ textAlign: 'center' }}>Create Unicorn</h1>
-        <PostForm />
+        {error !== null
+          ? < h1 className='warning'> {error}</h1>
+          : <h1 className="helements">Create Unicorn</h1>}
+        < PostForm />
       </MyModal>
-
-      {state.length !== 0
-        ? <PostList remove={removePost} updade={updatePost}
-          title="List of posts" />
-        : <h1 style={{ textAlign: 'center' }}>Posts dont find</h1>
-      }
-    </div>
+    </div >
   );
 }
 

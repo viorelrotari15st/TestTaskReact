@@ -3,13 +3,13 @@ import { useState } from 'react';
 import MyButton from '../UI/button/MyButton';
 import MyInput from '../UI/input/MyInput';
 import { useDispatch } from 'react-redux';
-import { createNewPost } from '../Redux/actions'
+import { createNewPost } from '../Redux/thunks';
+;
 
 const PostForm = () => {
     const dispachForPost = useDispatch();
     const [post, setPost] = useState({ name: '', age: '', colour: '' });
     const addNewPost = (e) => {
-        e.preventDefault();
         dispachForPost(createNewPost(post));
         setPost({ name: '', age: '', colour: '' });
     }
@@ -38,6 +38,7 @@ const PostForm = () => {
                 />
 
                 <MyButton
+                    type="button"
                     onClick={addNewPost}
                 >Create post</MyButton>
             </form>

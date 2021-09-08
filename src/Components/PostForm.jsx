@@ -18,27 +18,31 @@ const PostForm = () => {
         <div>
             <form>
                 <MyInput
-                    value={post.name}
+                    value={post.name || ''}
                     type="text"
+                    required
                     placeholder="Name of unicorn"
                     onChange={e => setPost({ ...post, name: e.target.value })}
                 />
 
                 <MyInput
-                    value={post.age}
-                    type="text"
+                    value={post.age || ''}
+                    type="number"
+                    min="1"
                     placeholder="Age of Unicorn"
                     onChange={e => setPost({ ...post, age: e.target.value })}
+                    required
                 />
                 <MyInput
-                    value={post.colour}
+                    value={post.colour || ''}
                     type="text"
                     placeholder="Color of Unicorn"
                     onChange={e => setPost({ ...post, colour: e.target.value })}
+                    required
                 />
 
                 <MyButton
-                    type="button"
+                    type="submit"
                     onClick={addNewPost}
                 >Create post</MyButton>
             </form>

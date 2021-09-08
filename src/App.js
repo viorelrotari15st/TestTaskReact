@@ -9,12 +9,14 @@ import MyModal from './Components/MyModal/MyModal'
 import PutForm from './Components/PutForm';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-import { getError, getPosts, isLoading } from './Redux/postsReducer'
+import { getError, getPosts, isLoading } from './Redux/postsReducer';
+import PostFormTest from './Components/Form/PostFormTest';
 
 function App() {
   const [modal, setModal] = useState(false);
   const [putmodal, setPutModal] = useState(false)
   const [curentItem, setCurecntItem] = useState()
+  const [emptyItem, setEmptyItem] = useState({ _id: '', name: '', age: '', colour: '' })
 
   const posts = useSelector(getPosts);
   const loading = useSelector(isLoading);
@@ -43,6 +45,7 @@ function App() {
       }
       <MyButton onClick={() => setModal(true)} >Create Unicorn</MyButton>
 
+
       {!loading
         ? <Loader
           type="Puff"
@@ -64,7 +67,7 @@ function App() {
         {error !== null
           ? < h1 className='warning'> {error}</h1>
           : <h1 className="helements">Update Unicorn</h1>}
-        <PutForm value={curentItem} />
+        <PostFormTest value={curentItem} />
       </MyModal>)
       }
       <MyModal visible={modal}
@@ -72,7 +75,7 @@ function App() {
         {error !== null
           ? < h1 className='warning'> {error}</h1>
           : <h1 className="helements">Create Unicorn</h1>}
-        < PostForm />
+        <PostFormTest value={emptyItem} />
       </MyModal>
     </div >
   );

@@ -36,13 +36,11 @@ function App() {
 
   return (
     <div className="App">
-
       {error !== null
         ? <h1 className="warning">{error}</h1>
         : <h1 className="headertext">List of all unicorns from server</h1>
       }
       <MyButton onClick={() => setModal(true)} >Create Unicorn</MyButton>
-
 
       {!loading
         ? <Loader

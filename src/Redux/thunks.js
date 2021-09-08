@@ -36,7 +36,7 @@ export const deteUnicorn = (post) => (dispach, getState, service) => {
         .catch((err) => dispach(actionDeteUnicornRejected(`${err}, Can't delete item `)))
 }
 export const updateDataUnicorn = (post, id) => (dispach, getState, service) => {
-    actionUpdateDataUnicorn();
+    dispach(actionUpdateDataUnicorn());
     return service.updatePost(id, post)
         .then((resp) => dispach(actionUpdateDataUnicornFulfiled(post, id)))
         .catch((err) => dispach(actionUpdateDataRejected(`${err}, Cant't update this post `)))

@@ -87,13 +87,8 @@ const PostFormTest = ({ value }) => {
         <option value="blue">blue</option>
       </select>
       <input className={classes.myBtn} type="submit" />
-      <input type="reset" />
     </form>
   );
 };
-
-// PostFormTest.defaultPorops = {
-//     value: { name: '', age: '', colour: '' }
-// }
 
 export default PostFormTest;

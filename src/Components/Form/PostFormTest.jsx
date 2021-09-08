@@ -7,13 +7,14 @@ import { getPosts } from '../../Redux/postsReducer';
 
 const PostFormTest = ({ value }) => {
     const dispachForPost = useDispatch();
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({
         defaultValues: {
             name: value.name,
             age: value.age,
             colour: value.colour
         }
     });
+
 
     const posts = useSelector(getPosts);
     const postExists = (name) => {
@@ -23,8 +24,6 @@ const PostFormTest = ({ value }) => {
     const onSubmit = data => {
         if (data !== undefined && value._id === '' && !postExists(watch("name"))) {
             dispachForPost(createNewPost(data));
-            //console.log(postExists(watch("name")))
-
 
         } else if (data !== undefined && !postExists(watch("name"))) {
             dispachForPost(updateDataUnicorn(data, value._id))
@@ -43,10 +42,10 @@ const PostFormTest = ({ value }) => {
 
             {errors.name
                 ?.type === "minLength"
-                && <p className={classes.warning}>min lenght is 4</p>}
+                && <span className={classes.warning}>min lenght is 4</span>}
             {errors.name
                 ?.type === "required" &&
-                <p className={classes.warning}>Name is required</p>}
+                <span className={classes.warning}>Name is required</span>}
 
             <input className={classes.myInput}
                 placeholder="Aage of unicorn"
@@ -54,10 +53,10 @@ const PostFormTest = ({ value }) => {
                     { required: true, min: 1, max: 25, pattern: /^[0-9]$/ })} />
 
             {errors.age?.type === "pattern" &&
-                <p className={classes.warning}>Insert only numbers</p>}
+                <span className={classes.warning}>Insert only numbers</span>}
             {errors.age
                 ?.type === "required" &&
-                <p className={classes.warning}>Aage is required</p>}
+                <span className={classes.warning}>Aage is required</span>}
 
             <select {...register("colour", { required: true })}>
                 <option value="White">White</option>
@@ -67,7 +66,9 @@ const PostFormTest = ({ value }) => {
                 <option value="blue">blue</option>
             </select>
             <input className={classes.myInput}
-                type="submit" />
+                type="submit" onSubmit={() => reset({})}
+            />
+            <input type="reset" />
         </form >
     );
 };

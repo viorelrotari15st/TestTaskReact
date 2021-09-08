@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import PostForm from './Components/PostForm';
 import PostList from './Components/PostList';
 import { unicornsGet, deteUnicorn } from './Redux/thunks'
 import './styles/App.css'
 import MyButton from './UI/button/MyButton';
 import MyModal from './Components/MyModal/MyModal'
-import PutForm from './Components/PutForm';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import { getError, getPosts, isLoading } from './Redux/postsReducer';

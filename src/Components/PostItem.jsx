@@ -1,20 +1,20 @@
 import React from "react";
 import MyButton from "../UI/button/MyButton";
 
-const PostItem = (props) => {
+const PostItem = ({ number, post, remove, updade }) => {
   return (
     <div>
       <div className="post">
         <div className="post_content">
           <strong>
-            {props.number}.{props.post.name}{" "}
+            {number}.{post.name}{" "}
           </strong>
-          <div>Age: {props.post.age}</div>
-          <div>Color: {props.post.colour}</div>
+          <div>Age: {post.age}</div>
+          <div>Color: {post.colour}</div>
         </div>
         <div className="postBtn">
-          <MyButton onClick={() => props.remove(props.post)}>Delete</MyButton>
-          <MyButton onClick={() => props.updade(props.post)}>Update</MyButton>
+          <MyButton onClick={() => remove(post)}>Delete</MyButton>
+          <MyButton onClick={() => updade(post)}>Update</MyButton>
         </div>
       </div>
     </div>

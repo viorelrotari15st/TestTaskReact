@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createNewPost, updateDataUnicorn } from "../../Redux/thunks";
 import classes from "./PostFormTest.module.css";
-import { getPosts } from "../../Redux/postsReducer";
 
 const PostFormTest = ({ value }) => {
   const dispachForPost = useDispatch();
-  const [warning, setWwarning] = useState("");
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm({
@@ -21,11 +18,6 @@ const PostFormTest = ({ value }) => {
       colour: value?.colour,
     },
   });
-
-  const posts = useSelector(getPosts);
-  const postExists = (name) => {
-    return posts.some((el) => el.name === name);
-  };
 
   const onSubmit = (data) => {
     if (!!data && !value) {
@@ -44,7 +36,6 @@ const PostFormTest = ({ value }) => {
         placeholder="Name of unicorn"
         {...register("name", { required: true, minLength: 4 })}
       />
-      <span className={classes.warning}>{warning}</span>
 
       {errors.name?.type === "minLength" && (
         <span className={classes.warning}>min lenght is 4</span>
@@ -73,10 +64,11 @@ const PostFormTest = ({ value }) => {
       )}
 
       <select
+        defaultValue={"DEFAULT"}
         className={classes.myInput}
         {...register("colour", { required: true })}
       >
-        <option value="" selected disabled hidden>
+        <option value="DEFAULT" selected disabled hidden>
           Choose here
         </option>
         <option value="White">White</option>

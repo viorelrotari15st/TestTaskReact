@@ -33,30 +33,30 @@ export const postsReducer = (state = initialState, action) => {
         case CREATE_POSTS:
             return { ...state, loading: true }
         case CREATE_POSTS_FULFILLED:
-            return { ...state, posts: [...state.posts, action.payload], }
+            return { ...state, posts: [...state.posts, action.payload], loading: false }
         case CREATE_POSTS_REJECTED:
-            return { ...state, error: action.error };
+            return { ...state, error: action.error, loading: false };
 
         case GET_UNICORNS:
             return { ...state, loading: true }
         case GET_UNICORNS_FULFILED:
-            return { ...state, posts: action.payload }
+            return { ...state, posts: action.payload, loading: false }
         case GET_UNICORNS_REJECTED:
-            return { ...state, error: action.error }
+            return { ...state, error: action.error, loading: false }
 
         case DELETE_UNICORN:
             return { ...state, loading: true }
         case DELETE_UNICORN_FULFILED:
-            return { ...state, posts: state.posts.filter(el => el._id !== action.payload) }
+            return { ...state, posts: state.posts.filter(el => el._id !== action.payload), loading: false }
         case DELETE_UNICORN_REJECTED:
-            return { ...state, error: action.error }
+            return { ...state, error: action.error, loading: false }
 
         case UPDATE_UNICORNS:
             return { ...state, loading: true }
         case UPDATE_UNICORNS_FULFILED:
-            return { ...state, posts: reduceData(state.posts, action.payload, action.id) }
+            return { ...state, posts: reduceData(state.posts, action.payload, action.id), loading: false }
         case UPDATE_UNICORNS_REJECTED:
-            return { ...state, error: action.error }
+            return { ...state, error: action.error, loading: false }
         case HANDLE_ERORS:
             return state
         default: return state;

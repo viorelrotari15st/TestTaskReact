@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PostList from './Components/PostList';
-import { unicornsGet, deteUnicorn } from './Redux/thunks'
+import { unicornsGet, deleteUnicorn } from './Redux/thunks'
 import './styles/App.css'
 import MyButton from './UI/button/MyButton';
 import MyModal from './Components/MyModal/MyModal'
@@ -14,7 +14,7 @@ function App() {
   const [modal, setModal] = useState(false);
   const [putmodal, setPutModal] = useState(false)
   const [curentItem, setCurecntItem] = useState()
-  const [emptyItem, setEmptyItem] = useState({ _id: '', name: '', age: '', colour: '' })
+  //const [emptyItem, setEmptyItem] = useState({ _id: '', name: '', age: '', colour: '' })
 
   const posts = useSelector(getPosts);
   const loading = useSelector(isLoading);
@@ -26,7 +26,7 @@ function App() {
   }, [dispatch])
 
   const removePost = (post) => {
-    dispatch(deteUnicorn(post._id));
+    dispatch(deleteUnicorn(post._id));
   }
   const updatePost = (post) => {
     setCurecntItem(post);
@@ -42,7 +42,7 @@ function App() {
       }
       <MyButton onClick={() => setModal(true)} >Create Unicorn</MyButton>
 
-      {!loading
+      {!!loading
         ? <Loader
           type="Puff"
           color="#00BFFF"
@@ -71,7 +71,7 @@ function App() {
         {error !== null
           ? < h1 className='warning'> {error}</h1>
           : <h1 className="helements">Create Unicorn</h1>}
-        <PostFormTest value={emptyItem} />
+        <PostFormTest />
       </MyModal>
     </div >
   );

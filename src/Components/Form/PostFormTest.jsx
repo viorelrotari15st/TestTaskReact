@@ -7,7 +7,7 @@ import { getPosts } from "../../Redux/postsReducer";
 
 const PostFormTest = ({ value }) => {
   const dispachForPost = useDispatch();
-  const [warning, setWwarning] = useState(" ");
+  const [warning, setWwarning] = useState("");
   const {
     register,
     handleSubmit,
@@ -16,9 +16,9 @@ const PostFormTest = ({ value }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: value.name,
-      age: value.age,
-      colour: value.colour,
+      name: value?.name,
+      age: value?.age,
+      colour: value?.colour,
     },
   });
 
@@ -28,16 +28,12 @@ const PostFormTest = ({ value }) => {
   };
 
   const onSubmit = (data) => {
-    if (data !== undefined && value._id === "" && !postExists(watch("name"))) {
+    if (!!data && !value) {
       dispachForPost(createNewPost(data));
       reset();
-      setWwarning(" ");
-    } else if (data !== undefined && !postExists(watch("name"))) {
+    } else if (!!data && value._id !== " ") {
       dispachForPost(updateDataUnicorn(data, value._id));
       reset();
-      setWwarning(" ");
-    } else {
-      setWwarning("Error this name already exists");
     }
   };
 
@@ -80,10 +76,13 @@ const PostFormTest = ({ value }) => {
         className={classes.myInput}
         {...register("colour", { required: true })}
       >
+        <option value="" selected disabled hidden>
+          Choose here
+        </option>
         <option value="White">White</option>
         <option value="Black">Black</option>
         <option value="Red">Red</option>
-        <option value="Nigga">Nigga</option>
+        <option value="Zebra">Zebra</option>
         <option value="blue">blue</option>
       </select>
       <input className={classes.myBtn} type="submit" />

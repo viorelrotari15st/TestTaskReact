@@ -5,9 +5,9 @@ import {
     actionUnicornsGetFulfiled,
     actionUnicornsGet,
     actionUnicornsGetRejected,
-    actionDeteUnicornFulfiled,
-    actionDeteUnicornRejected,
-    actionDeteUnicorn,
+    actionDeleteUnicornFulfiled,
+    actionDeleteUnicornRejected,
+    actionDeleteUnicorn,
     actionUpdateDataUnicorn,
     actionUpdateDataUnicornFulfiled,
     actionUpdateDataRejected
@@ -23,17 +23,17 @@ export const createNewPost = (post) => (dispach, getState, service) => {
 }
 
 export const unicornsGet = () => (dispach, getState, service) => {
-    dispach(actionUnicornsGet())
+    dispach(actionUnicornsGet());
     return service.getAll()
-        .then((resp) => dispach(actionUnicornsGetFulfiled(resp)))
-        .catch((err) => dispach(actionUnicornsGetRejected(`${err}, Cant't upload list of unicorns`)))
+        .then((resp) => { return dispach(actionUnicornsGetFulfiled(resp)) })
+        .catch((err) => dispach(actionUnicornsGetRejected(`${err}, Cant't download list of unicorns`)))
 
 }
-export const deteUnicorn = (post) => (dispach, getState, service) => {
-    dispach(actionDeteUnicorn())
-    return service.deletaPost(post)
-        .then((resp) => dispach(actionDeteUnicornFulfiled(post)))
-        .catch((err) => dispach(actionDeteUnicornRejected(`${err}, Can't delete item `)))
+export const deleteUnicorn = (id) => (dispach, getState, service) => {
+    dispach(actionDeleteUnicorn())
+    return service.deletePost(id)
+        .then((resp) => { dispach(actionDeleteUnicornFulfiled(id)) })
+        .catch((err) => dispach(actionDeleteUnicornRejected(`${err}, Can't delete item `)))
 }
 export const updateDataUnicorn = (post, id) => (dispach, getState, service) => {
     dispach(actionUpdateDataUnicorn());

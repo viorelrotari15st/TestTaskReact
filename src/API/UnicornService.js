@@ -1,42 +1,27 @@
 import axios from "axios";
 
-export default class UnicornService {
-    URL = 'https://jsonplaceholder.typicode.com/posts'
-
-    static async getAll() {
-        try {
-            const response = await axios.get('https://crudcrud.com/api/1fb76ca0a53b402998900e4539b53c3b/unicorns')
-            return response.data;
-
-        } catch (e) {
-            console.log(e);
-
-        }
-
+export class UnicornService {
+    URL = 'https://crudcrud.com/api/';
+    APYKEY = '8d55341502104f16915ea4a9e77d0b1c';
+    constructor() {
+        this.http = axios.create();
     }
-    static async newPost(dataForPost) {
-        try {
-            const resp = await axios.post('https://crudcrud.com/api/1fb76ca0a53b402998900e4539b53c3b/unicorns/', dataForPost)
-            return resp.data;
-        } catch (error) {
-            console.log(error)
 
-        }
+
+    getAll = async () => {
+        const response = await this.http.get(`${this.URL}${this.APYKEY}/unicorns/`)
+        return response.data;
     }
-    static async deletaPost(id) {
-        try {
-            const resp = await axios.delete(`https://crudcrud.com/api/1fb76ca0a53b402998900e4539b53c3b/unicorns/${id}`)
-            return (resp.data)
-        } catch (error) {
-            console.log(error)
-        }
+    newPost = async (dataForPost) => {
+        const resp = await this.http.post(`${this.URL}${this.APYKEY}/unicorns/`, dataForPost)
+        return resp.data;
     }
-    static async updatePost(id, dataForUpdate) {
-        try {
-            const resp = await axios.put('https://crudcrud.com/api/1fb76ca0a53b402998900e4539b53c3b/unicorns/' + id, dataForUpdate);
-            return resp.data
-        } catch (error) {
-            console.error(error)
-        }
+    deletePost = async (id) => {
+        const resp = await this.http.delete(`${this.URL}${this.APYKEY}/unicorns/${id}`)
+        return (resp.data)
+    }
+    updatePost = async (id, dataForUpdate) => {
+        const resp = await this.http.put(`${this.URL}${this.APYKEY}/unicorns/${id}`, dataForUpdate);
+        return resp.data
     }
 }
